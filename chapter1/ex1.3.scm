@@ -14,3 +14,4 @@
 	((> c b) (+ c (larger a b)))
 	((> c a) (+ c (larger a b)))))
 
+(sum-big 1 2 3)
