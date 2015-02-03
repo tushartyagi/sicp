@@ -1,4 +1,3 @@
-
 ## Chapter 1: Building Abstractions With Procedures ##
 
 
@@ -142,3 +141,8 @@ have 2^m nodes, which essentially means that the number of steps double, and we
 only need to keep the information for those, the space requirement.
 
 
+#### Order of Growth ####
+R(n) = Θ(f(n)) if there are positive constants k1 and k2, independent of n,
+such that:
+
+k1∙f(n) ≤ R(n) ≤ k2∙f(n) 

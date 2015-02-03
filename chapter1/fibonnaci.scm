@@ -12,6 +12,7 @@
 (define (fib-iter a b count)
   (if (= count 0)
       a
-      (fib-iter (+ a b) a (- count 1))))
+      (fib-iter (+ a b) a (- count 1)))
+  )
   
 
