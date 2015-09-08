@@ -1,12 +1,8 @@
-## Chapter 1: Building Abstractions With Procedures ##
-
+# Chapter 1: Building Abstractions With Procedures ##
 
 Computational processes are abstract beings which evolve and, as a result,
 manipulate data. The evolution is directed by set of instructions called
 program.
-
-
-### Elements of programming: ###
 
 Every language provides mechanisms to convert simple ideas to complex ones.
 These are usually done by the following:
@@ -22,7 +18,7 @@ has its own evaluation rules (primarily, they differ from functions becuase
 every parameter may not be evaluated, e.g. logical operators _and_ and _or_
 _short circuit_ their parameters. In contast, _not_ is a procedure.
 
-
+Procedures are a way of using imperative knowledge.
 
 ### Evaluating Combinations: ###
 To evaluate a combination, do the following:
