@@ -62,6 +62,16 @@ all the parameters and then reduces them. Taking the above example:
 	(+ 9 16)
 	25
 
+This Normal order evalution is _lazy_ because it will not evaluate the
+expression which are not needed. To understand the difference, take a look
+at the exercise 1.20.
+
+Also, if the expression contains some reducible (sub)expressions, then
+applicative order evaluates the leftmost-innermost redux which are generally
+the parameters, and the normal order evaluates the leftmost-outermost which
+is generally the expression itself. But the word generally is used without
+any proof, need to dig deeper into this.
+
 All the processes which can be modeled using Substitution model give the same
 result no matter which evaluation order is used. 
 
@@ -86,6 +96,7 @@ the variable name.
 Lexical scoping means that the definition of a free variable comes from the
 body of the enclosing parent procedure. In other words, they look for the
 definitions in the environment in which the procedure was defined.
+
 
 ### Shapes of Process: ###
 An extremely amazing concept is the shape of the process. Taking the example

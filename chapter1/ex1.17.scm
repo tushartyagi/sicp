@@ -1,4 +1,5 @@
 #lang racket
+(require htdp/testing)
 
 (define (mul a b)
   (if (= b 0)
@@ -23,3 +24,6 @@
         ((even? a) (double (fast-mul (halve a) b)))
         (else (+ a (fast-mul a (- b 1))))))
   
+
+(check-expect (fast-mul 2 4) 8)
+(check-expect (fast-mul 8 8) 64)
