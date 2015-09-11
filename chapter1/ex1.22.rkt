@@ -73,3 +73,6 @@
 ;; factor of 10, the time taken increase by (sqrt 10)
 ;; 10**10 : 10**11 = 84 : 268 and 265 = (* 84  (sqrt 10))
 ;; 10**11 : 10**12 = 268: 857 and 847 = (* 268 (sqrt 10))
+
+(provide updated-timed-prime-test)
+(provide search-for-primes)
