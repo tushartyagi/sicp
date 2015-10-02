@@ -153,3 +153,8 @@ R(n) = Θ(f(n)) if there are positive constants k1 and k2, independent of n,
 such that:
 
 k1∙f(n) ≤ R(n) ≤ k2∙f(n) 
+
+
+### Higher Order Procedures:
+The procedures which can accept other procedures as arguments and return procedures are called *higher order procedures*.
+
