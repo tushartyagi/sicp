@@ -1,0 +1,12 @@
+* Building Abstractions With Data
+** Data
+   Data can be defined as some callection of procedures and specified conditions which these procedures must fulfill.
+** Compound Data
+   Build so that we can think about the data at a higher level than the primitive data.
+   The program itself should make no assumptions about the structure of data, and should act on "abstract data". Independent of this program, there needs to be a concrete representation of the data. Between these abstract and concrete representation will be a set of procedures called "selectors" and "constructors" which implement the data concretely.
+** Data Abstraction
+   The main idea behind data abstraction is to define a set of  operations which can be used in any manipulation of the data and using only these operations for manipulation. In object oriented programming, this is the principle used to create closed encapsulation -- if you can change the data by directly accessing the properties, then the encapsulation is broken.
+*** Abstraction Barriers: 
+    The barriers which we setup at each level of abstraction to hide the implementation details, this helps to think in terms of the implementation which is at the current level of the abstraction.
+** Closure Property
+   Taken from the closure property of sets, where an operation is  closed over a set if applying that operation on the elements of the set produces the elements of the same set.

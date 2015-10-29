@@ -31,8 +31,8 @@
 (define (sum-squared-prime a b)
   (filtered-accumulate + 0 prime? square a inc b))
 
-;;(sum-even 1 10)
-;;(sum-squared-prime 1 10)
+(sum-even 1 10)
+(sum-squared-prime 1 10)
 
 ;; is-relative-prime
 ;; checks if i is relatively prime to n
@@ -43,7 +43,5 @@
 ;; sum-relative-prime
 ;; gets the sum of all the numbers less than n which are
 ;; relatively prime to n
-(define (prod-relative-prime n)
+(define (sum-relative-prime n)
   (filtered-accumulate * 1 (is-relative-prime? n) id 1 inc n))
-
-(prod-relative-prime 12)
