@@ -10,3 +10,6 @@
     The barriers which we setup at each level of abstraction to hide the implementation details, this helps to think in terms of the implementation which is at the current level of the abstraction.
 ** Closure Property
    Taken from the closure property of sets, where an operation is  closed over a set if applying that operation on the elements of the set produces the elements of the same set.
+** Trees: 
+   These can be used to represent those sequences whose elements are themselves sequences. The elements are the branches, and elements that are themselves sequences are subtrees.
+   Recursion is needed here, and we can reduce operation on trees to operation on their branches.

@@ -1,0 +1,4 @@
+The tree will be split at:
+1 as element, (2 (3 4)) as tree
+2 as element, (3 4) as tree
+3 as element and 4 as element
