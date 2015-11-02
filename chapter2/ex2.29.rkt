@@ -69,7 +69,8 @@
 ;; a structure is mobile if it is a list (and not a number), and something
 ;; which is not a mobile is a weight.
 (define (mobile? structure)
-  (list? structure))
+  ;;(list? structure))
+  (pair? structure))
 (define (weight? structure)
   (not (mobile? structure)))
 

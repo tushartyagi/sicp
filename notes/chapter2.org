@@ -13,3 +13,8 @@
 ** Trees: 
    These can be used to represent those sequences whose elements are themselves sequences. The elements are the branches, and elements that are themselves sequences are subtrees.
    Recursion is needed here, and we can reduce operation on trees to operation on their branches.
+   what map is to lists, map + recursion is to trees. 
+   Look at pairs.md for an indepth treatment of this.
+** Conventional Interfaces
+   A lot of operation can be defined in terms of conventional interfaces wherein we "combine processing modules", i.e. the functions that are defined for sequences. 
+   
