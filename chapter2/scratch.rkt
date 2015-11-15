@@ -12,3 +12,22 @@
     ((not (pair? tree)) 1)
     (else (+ (count-leaves (car tree))
              (count-leaves (cdr tree))))))
+
+
+(define (double-tree tree)
+  (cond
+    ((null? tree) null)
+    ((not (list? tree))
+     (* 2 tree))
+    (else
+     (cons (double-tree (car tree))
+           (double-tree (cdr tree))))))
+
+;; scale-tree
+;; scales a tree
+(define (scale-tree factor tree)
+  (map (lambda (subtree)
+         (if (pair? subtree)
+             (scale-tree factor subtree)
+             (* factor subtree)))
+       tree))

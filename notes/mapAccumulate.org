@@ -1,0 +1,18 @@
+* Map and Accumulate
+** Map: 
+Used to create a new list by mapping a function on the elements of an existing list. The new list's length is equal to the length of the previous list since each of the element has been iterated over.
+
+This is how map can be defined, using scheme:
+#+BEGIN_SRC scheme
+
+
+#+END_SRC
+
+** Accumulate:
+Is used to reduce a list into a single element by taking a list, a reduction function (which takes in 2 parameters and returns a single value) and a seed value, sometimes the seed value can be the first element of the list.
+That is how it works, but essentially we use accumulate to reduce a list to a single value by applying an operation.
+
+In recursive data structures like trees, we can map and accumulate where maps over each subtree, and accumulate reduces each subtree to a single value. Or we can accumulate over the tree where each subtree has been iterated by a mapping function.
+** Map and Accumulate
+** Accumulate and Map
+
