@@ -18,9 +18,19 @@
       (cons (accumulate op init (map car seqs))
             (accumulate-n op init (map cdr seqs)))))
 
+(define (enumerate-interval low high)
+  (if (> low high)
+      null
+      (cons low
+            (enumerate-interval (+ low 1) high))))
+
+(define (flatmap proc seq)
+  (accumulate append null (map proc seq)))
 
 (provide fold-right)
 (provide accumulate)
 (provide accumulate-n)
 (provide id)
 (provide square)
+(provide enumerate-interval)
+(provide flatmap)

@@ -1,5 +1,7 @@
 #lang racket
 
+(require "operations.rkt")
+
 (define x (cons (list 1 2) (list 3 4)))
 
 ;; count-leaves
@@ -31,3 +33,18 @@
              (scale-tree factor subtree)
              (* factor subtree)))
        tree))
+
+
+;; (accumulate append
+;;             null
+;;             (map (lambda (i) 
+;;                    (map (lambda (j) (list i j))
+;;                         (enumerate-interval 1 (- i 1))))
+;;                  (enumerate-interval 1 )))
+
+
+           
+(map (lambda (i)
+           (map (lambda (j) (list i j))
+                (enumerate-interval 1 (- i 1))))
+         (enumerate-interval 1 5))
