@@ -1,0 +1,86 @@
+* Nested loops in Scheme
+** Single Loops
+  Unlike C family languages, Scheme don't have a for loop. And since Lists are the main data types in lisp, the language contains map function which iterates over a given list and can apply the given function on the list. This provides another layer of abstraction where we only need to tell the program what needs to be done, and not how it needs to be done.
+
+For instance, in the following C program, I am specifically multiplying each element of the array with 2 in order to double the value of that element.
+
+#+BEGIN_SRC C
+  int items[] = [1,2,3,4,5];
+  int i;
+
+  for (i = 0; i < 5; ++i) {
+      items[i] *= 2;
+  }
+#+END_SRC
+
+The best I can do here is to have a function double which doubles a number and use that inside the for loop.
+
+#+BEGIN_SRC C
+  int i;
+
+  for (i = 0; i < 5; ++i) {
+      items[i] = double(items[i]);
+  }
+
+#+END_SRC
+
+but this doesn't make the code a whole lot cleaner. Notice that the iteration and the manipulation of the code is tightly bound, and changing one means changing the other.
+           
+In functional programming, the iteration and the manipulation logic are independent of each other, as shown in the following example:
+
+#+BEGIN_SRC scheme
+  (map (lambda (i)
+         (* i 2))
+       (list 1 2 3 4 5))
+#+END_SRC
+
+This doesn't have to be an anonymous function, so if we have a predefined function like `sqrt`, then we can pass it as the mapping function and get 
+the work done:
+
+#+BEGIN_SRC scheme
+(map sqrt (list 1 2 3 4 5))
+#+END_SRC
+
+** Double Loops
+The next idea is to have nested loops in the code. 
+
+After being doing imperative style programming for so many days, thinking in terms of nested loops is easier. And the first impression of nested loops to me was completely logical.
+
+#+BEGIN_SRC c
+  int items[] = [1,2,3,4,5,6];
+  int i, j;
+
+  for(i = 0; i < 6; ++i) {
+    for (j = 0; j < i; ++j) {
+      /* Do something with the values of i and j */
+      doSomething(i, j);
+    }
+  }
+
+#+END_SRC
+
+But when it came to making nested loops in a functional way, it was a totally new way of thinking and it took some practice.
+
+The idea is to have nested maps, where the first map iterates over the whole sequence and the inner map iterates over the subsequence, usually to the current index of the main sequence. The iteration is done by our trusted lambda functions.
+
+Take, for instance, the code where the inner loop iterates through the values 0 to the current value of the outer loop (the one shown above).
+
+For this, we are going to need another function which can create the list for us, and as given in SICP, we will use `enumerate-sequence`
+
+#+BEGIN_SRC scheme
+  (define (enumerate-sequence low high)
+    (if (> low high)
+        (list null)
+        (cons low
+              (enumerate-sequence (+ 1 low) high))))
+
+#+END_SRC
+
+#+BEGIN_SRC scheme
+  (map (lambda (i)
+         (map (lambda (j)
+                (do-something i j))
+              (enumerate-sequence 1 (- i 1)))
+         (enumerate-sequence 1 6)))
+#+END_SRC
+
