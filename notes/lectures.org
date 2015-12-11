@@ -1,0 +1,19 @@
+Summary of the 
+
+** 3A
+   This one centered around the idea of abstraction and combination and the prof showed (and I had to solve the exercise) as to how as long as the code is abstracted correctly, we can change the underlying code without changing the way it is being used in the other parts of the program.
+
+   `cons` for instance can be created in multiple ways, but the lisp has one specific way of doing it by storing the car in the first pointer and cdr in the second pointer.
+
+   One way which professor said was suitable is to divide the programs into constructors and selectors. Although the selectors depend upon the structure of constructor to fetch the details, the program itself is oblivious to how these are implemented. For instance, in the case of rational numbers, we have multiple ways of creating the data, e.g. using a pair, or using a dotted pair, and the selectors will depend on the pattern we have chosen in the constructor, but the program simply wants the selectors to return the required value and nothing more.
+
+   Another important concept which is taken up here is to remove the difference between procedures and data. These are same, since both are pieces of code, and both can return values. There was one way where the cons operator was created as a procedure and otherwise we know that it is a data structure.
+
+   Then there was the section of picture language, which I read but skipped the exercises. But I will be taking up the next three sections where there is plenty of things to learn and enough theory.
+
+** 3B
+   In this one the prof implemented a method of calculating the derivative of a given expression. The most important point was the fact that we are using the lisp expression to solve the problem. This is one point which I need to further understand because while I have understood the philosophy behind this, I am not able to think through it.
+
+   In the previous lecture, the prof showed that how instead of breaking a problem to n independent problem, it is better to down-layer the problem to m layers of different languages, which are independent of each other, but talk to each other using the primitives that are defined in the previous layers. 
+
+   

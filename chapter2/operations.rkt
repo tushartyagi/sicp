@@ -4,6 +4,13 @@
 
 (define (id x) x)
 
+(define (for-each f elems)
+  (cond
+    ((null? elems) null)
+    ((null? (cdr elems)) (f (car elems)))
+    (else (f (car elems))
+          (for-each f (cdr elems)))))
+
 (define (accumulate op initial sequence)
   (if (null? sequence)
       initial
@@ -34,3 +41,4 @@
 (provide square)
 (provide enumerate-interval)
 (provide flatmap)
+(provide for-each)

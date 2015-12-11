@@ -1,0 +1,58 @@
+#lang racket
+(require 2htdp/image)
+(require "vectors.rkt")
+(require "segments.rkt")
+(require (planet "sicp.ss" ("soegaard" "sicp.plt" 2 1)))
+
+;; make-frame
+;; creates a frame
+(define (make-frame origin corner1 corner2)
+  (list origin corner1 corner2))
+
+(define (origin-frame frame)
+  (first frame))
+
+(define (edge1-frame frame)
+  (second frame))
+
+(define (edge2-frame frame)
+  (third frame))
+
+;; Assumes that the vector v is a unit vector and transforms the
+;; vector to the given frame using vector transform.
+(define (frame-coord-map frame)
+  (lambda (v)
+    (add-vect
+     (origin-frame frame)
+     (add-vect (scale-vect (xcor-vect v)
+                           (edge1-frame frame))
+               (scale-vect (ycor-vect v)
+                           (edge2-frame frame))))))
+
+;; This requires a frame, and given a list of vector segments
+;; draws the lines
+(define (segments->painter segment-list)
+  (lambda (frame)
+    (for-each
+     (lambda (segment)
+       (draw-line
+        ((frame-coord-map frame) (start-segment segment))
+        ((frame-coord-map frame) (end-segment segment))))
+     segment-list)))
+
+(define (draw-line p1 p2)
+  (add-line (rectangle 500 500 "solid" "black")
+            (xcor-vect p1)
+            (ycor-vect p1)
+            (xcor-vect p2)
+            (ycor-vect p2)
+            "white"))
+
+(define s (make-segment (make-vect 3 4) (make-vect 5 6)))
+((segments->painter (list s)) (make-frame (make-vect 0 0) (make-vect 1 2) (make-vect 10 12)))
+
+
+((frame-coord-map (make-frame (make-vect 0 0)
+                              (make-vect 0 3)
+                              (make-vect 3 0)))
+ (make-vect 3 5))
