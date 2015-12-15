@@ -1,5 +1,6 @@
 #lang racket
 (require "operations.rkt")
+(require "ordered-sets.rkt")
 
 ;; left and right are lists, not elements.
 (define (make-tree entry left right)
