@@ -70,12 +70,6 @@
                                (cadr pair))  ; frequency
                     (make-leaf-set (cdr pairs))))))
 
-(define (is-symbol-present sym tree)
-  (cond
-    ((empty? tree) false)
-    ((eq? sym (car tree)) true)
-    (else (is-symbol-present sym (cdr tree)))))
-
 
 (define sample-tree
   (make-code-tree (make-leaf 'A 4)

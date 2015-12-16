@@ -13,34 +13,17 @@
     ((eq? sym (car tree)) true)
     (else (symbol-present? sym (cdr tree)))))
 
-
-;; (define (encode-symbol char tree)
-;;   (define (symbol-in-branch? sym branch)
-;;     (symbol-present? sym (symbols-tree branch)))  
-;;   (define (find-symbol char tree path)
-;;     (cond
-;;       ((empty? tree) (error "Empty tree given"))
-;;       ((leaf? tree) path)
-;;       ((symbol-in-branch? char (left-branch tree))
-;;        (cons 0 (find-symbol char (left-branch tree) path)))
-;;       ((symbol-in-branch? char (right-branch tree))
-;;        (cons 1 (find-symbol char (right-branch tree) path)))))
-;;   (reverse (find-symbol char tree '())))
-
-;; A bit of cleaning done here
-;; Empty symbol is already taken care in the encode function
-;; but we are not doing empty tree checking as part of the code
-;; cleanup.
+;; Empty symbol is already handled in the encode function
+;; Not doing empty tree checking 
 (define (encode-symbol sym tree)
-  (display sym)
   (define (symbol-in-branch? branch)
     (symbol-present? sym (symbols-tree branch)))  
   (define (find-symbol tree path)
     (cond
       ((leaf? tree) path)
-      ((symbol-in-branch? (left-branch tree))
        ;; Need to clean this up as well, make this some sort of
        ;; a generic operation
+      ((symbol-in-branch? (left-branch tree))
        (cons 0 (find-symbol (left-branch tree) path)))
       ((symbol-in-branch? (right-branch tree))
        (cons 1 (find-symbol (right-branch tree) path)))
@@ -59,4 +42,4 @@
 
 (define sample-message '(0 1 1 0 0 1 0 1 0 1 1 1 0))
 
-(encode '(C B D) st)
+(encode '(A D A B B C A) st)
