@@ -34,6 +34,9 @@
          (first ordered-pairs)   ;; init -- total's first value
          (rest ordered-pairs)))  ;; list to fold
 
-(generate-huffman-trees  '((B 2) (C 1) (D 3) (A 4))) 
+;;(generate-huffman-trees  '((B 2) (C 1) (D 3) (A 4)))
+
+(provide generate-huffman-trees)
+
 
 
