@@ -5,12 +5,12 @@
         (else (cons type-tag x))))
 
 (define (type-tag x)
-  (cond ((or (symbol? x) (number x)) x)
+  (cond ((or (symbol? x) (number? x)) x)
         ((pair? x) (car x))
         (else (error "Whoops! Invalid data"))))
 
 (define (contents x)
-   (cond ((or (symbol? x) (number x)) x)
+   (cond ((or (symbol? x) (number? x)) x)
         ((pair? x) (cdr x))
         (else (error "Whoops! Invalid data"))))
 
