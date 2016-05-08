@@ -8,7 +8,7 @@
     (cond ((null? table) false)
           ((eq? (get-key (car table)) k)
            (set-car! table (new-node k v))
-           table)
+           true)
           (else (update k v (cdr table)))))
   (define (get-key node)
     (car node))
