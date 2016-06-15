@@ -29,3 +29,8 @@
       (error "Trying to delete an empty queue")
       (begin (set-front-ptr! queue (cdr (front-ptr queue)))
              queue)))
+
+(define (print-queue q)
+  (let ((fp (front-ptr q)))
+    (cond ((null? fp) '())
+          (else fp))))
