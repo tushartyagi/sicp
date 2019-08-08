@@ -81,15 +81,13 @@
          (eval-sequence (rest-exps exps) env))))
 
 (define (eval-assignment exp env)
-  (set-variable-value!
-   (assignment-variable exp)
-   (eval (assignment-value exp) env)
-   env)
+  (set-variable-value! (assignment-variable exp)
+                       (eval (assignment-value exp) env)
+                       env)
   'ok)
 
 (define (eval-definition exp env)
-  (define-variable!
-    (definition-variable exp)
+  (define-variable! (definition-variable exp)
     (eval (definition-value exp) env)
     env)
   'ok)
@@ -100,8 +98,9 @@
         (else false)))
 
 (define (tagged-list? exp tag)
-  (and (pair? exp)
-       (eq? (car exp) tag)))
+  (if (pair? exp)
+      (eq? (car exp) tag)
+      false))
 
 (define (variable? exp)
   (symbol? exp))
@@ -167,33 +166,34 @@
 
 (define (application? exp) (pair? exp))
 (define (operator exp) (car exp))
-(define (operands exp) (car exp))
+(define (operands exp) (cdr exp))
 (define (no-operands? ops) (null? ops))
 (define (first-operand ops) (car ops))
 (define (rest-operands ops) (cdr ops))
 
 (define (cond? exp) (tagged-list? exp 'cond))
 (define (cond-clauses exp) (cdr exp))
-(define (cond-predicate clause) (car clause))
 (define (cond-else-clause? clause)
   (eq? (cond-predicate clause) 'else))
+(define (cond-predicate clause) (car clause))
 (define (cond-actions clause) (cdr clause))
 (define (cond->if exp) (expand-clauses (cond-clauses exp)))
 (define (expand-clauses clauses)
   (if (null? clauses)
-      'false
+      'false ; no else clause
       (let ((first (car clauses))
             (rest (cdr clauses)))
         (if (cond-else-clause? first)
             (if (null? rest)
                 (sequence->exp (cond-actions first))
-                (error "ELSE clauses isn't last: COND->IF" clauses))
+                (error "ELSE clause isn't last: COND->IF"
+                       clauses))
             (make-if (cond-predicate first)
                      (sequence->exp (cond-actions first))
                      (expand-clauses rest))))))
 
 (define (true? x) (not (eq? x false)))
-(define (false x) (eq? x false))
+(define (false? x) (eq? x false))
 
 (define (make-procedure parameters body env)
   (list 'procedure parameters body env))
@@ -244,12 +244,12 @@
 (define (set-variable-value! var val env)
   (define (env-loop env)
     (define (scan vars vals)
-      (cond ((null? vars)
-             (env-loop (enclosing-environment env)))
-            ((eq? var (car vars)) (set-car! vals val))
-            (else (scan (cdr vars) (cdr vals)))))
+         (cond ((null? vars)
+                (env-loop (enclosing-environment env)))
+               ((eq? var (car vars)) (set-car! vals val))
+               (else (scan (cdr vars) (cdr vals)))))
     (if (eq? env the-empty-environment)
-        (error "Unbound variable: SET! " var)
+        (error "Unbound variable: SET!" var)
         (let ((frame (first-frame env)))
           (scan (frame-variables frame)
                 (frame-values frame)))))
@@ -264,6 +264,25 @@
             (else (scan (cdr vars) (cdr vals)))))
     (scan (frame-variables frame) (frame-values frame))))
 
+(define primitive-procedures
+  (list (list 'car car)
+        (list 'cdr cdr)
+        (list 'cons cons)
+        (list 'null? null?)))
+
+(define (primitive-procedure-names)
+  (map car primitive-procedures))
+(define primitive-procedures
+  (list (list 'car car)
+        (list 'cdr cdr)
+        (list 'cons cons)
+        (list 'null? null?)))
+
+
+(define (primitive-procedure-objects)
+  (map (lambda (proc) (list 'primitive (cadr proc)))
+       primitive-procedures))
+
 (define (setup-environment)
   (let ((initial-env
          (extend-environment (primitive-procedure-names)
@@ -273,23 +292,12 @@
     (define-variable! 'false false initial-env)
     initial-env))
 
+(define the-global-environment (setup-environment))
+
 (define (primitive-procedure? proc)
   (tagged-list? proc 'primitive))
 
 (define (primitive-implementation proc) (cadr proc))
-
-(define primitive-procedures
-  (list (list 'car car)
-        (list 'cdr cdr)
-        (list 'cons cons)
-        (list 'null? null?)))
-
-(define (primitive-procedure-names)
-  (map car primitive-procedures))
-
-(define (primitive-procedure-objects)
-  (map (lambda (proc) (list 'primitive (cadr proc)))
-       primitive-procedures))
 
 (define apply-in-underlying-scheme apply)
 
@@ -297,9 +305,9 @@
   (apply-in-underlying-scheme
    (primitive-implementation proc) args))
 
-(define input-prompt  ";;; M-Eval input: ")
+(define input-prompt  ";;; M-Eval input:")
 
-(define output-prompt ";;; M-Eval value: ")
+(define output-prompt ";;; M-Eval value:")
 
 (define (driver-loop)
   (prompt-for-input input-prompt)
@@ -323,5 +331,4 @@
                      '<procedure-env>))
       (display object)))
 
-(define the-global-environment (setup-environment))
 (driver-loop)
