@@ -8,6 +8,10 @@
          (text-of-quotation exp))
         ((assignment? exp)
          (eval-assignment exp env))
+        ((and? exp)
+         (eval-and exp env))
+        ((or? exp)
+         (eval-and exp env))
         ((definition? exp)
          (eval-definition exp env))
         ((if? exp)
@@ -332,3 +336,5 @@
       (display object)))
 
 (driver-loop)
+
+(define (let? exp) (tagged-list? exp 'let))
